@@ -221,8 +221,8 @@ class App2 extends React.Component {
 
     return (
       <div className='mainContentWrap email-maintenance'>
-        <div className='comTitle'>
-          网联发票邮箱维护系统
+        <div className='comTitle' style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' , marginTop: '24px' }}>
+          网联发票邮箱维护功能
         </div>
         
         <Card 
@@ -232,6 +232,14 @@ class App2 extends React.Component {
               type="primary"
               icon={<Icon type="plus" />}
               onClick={() => this.showModal()}
+              size="large"
+              style={{
+                backgroundColor: '#52c41a',
+                borderColor: '#52c41a',
+                fontWeight: 'bold',
+                boxShadow: '0 2px 0 rgba(0, 0, 0, 0.045)',
+                marginRight: '50px'
+              }}
             >
               新增邮箱
             </Button>

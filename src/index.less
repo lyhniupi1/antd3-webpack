@@ -1,0 +1,203 @@
+// 按钮样式 - 橙色主题
+.button-color-orange {
+    display: inline-block;
+    margin-top: 50px !important;
+    color: #000 !important;
+    border: 1px solid #b4b4b4;
+    background-color: #fff !important;
+
+    &:hover {
+        display: inline-block;
+        margin-top:50px !important;
+        color: #fff !important;
+        background-color: #ffa23b !important;
+        border: 1px solid #b4b4b4;
+        border-radius: 6px;
+    }
+}
+
+// 操作按钮
+.operatBtn {
+    border-color: #0067de;
+    background: #0067de;
+    color: #ffffff;
+    margin: 0 15px;
+
+    &:hover {
+        border-color: #5cc3ff;
+        background: #ffd700;
+        color: #5cc3ff;
+    }
+}
+
+// 批量文件样式
+.batchFile {
+    display: inline-block;
+    height: 20px;
+    background: #000;
+}
+
+// 商家按钮容器
+.merchantButton {
+    display: inline-block;
+    width: 150px;
+
+    .ant-input-affix-wrapper {
+        display: inline-block;
+        width: 58% !important;
+    }
+
+    .ant-btn {
+        display: inline-block;
+    }
+
+    .clear-card-color {
+        display: inline-block;
+    }
+}
+
+// 批量按钮容器
+.buttonBatch {
+    display: inline-block;
+
+    .button-margin-left {
+        margin-left: 10px;
+    }
+
+    .ant-form-item-control {
+        .del-btn-upload,
+        .button-color-none-upload,
+        .button-color-none-export {
+            display: inline-block !important;
+            margin-left: 10px !important;
+        }
+    }
+}
+
+.mainContentWrap {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    padding: 10px 20px;
+    :global{
+        .ant-input-number {
+            width: 100%
+        }
+        .ant-input {
+            width: 100%
+        }
+        .ant-table-tbody>tr>td, .ant-table-thead>tr>th {
+            padding: 5px;
+        }
+        .ant-card-head-title {
+            padding: 10px 0;
+        }
+        .ant-layout {
+            background: #fff;
+        }
+        .ant-card-body {
+            padding: 12px;
+        }
+        .ant-table-thead>tr {
+            background: #d0e5fa;
+        }
+        .ant-table-tbody>tr.ant-table-row-selected td {
+            background: #7fc5f6;
+            color: #fff;
+        }
+        .ant-table-tbody>tr.ant-table-row-hover:not(.ant-table-expanded-row)>td,.ant-table-tbody>tr:hover:not(.ant-table-expanded-row)>td, .ant-table-thead>tr .ant-table-row-hover:not(.ant-table-expanded-row)>td, .ant-table-thead>tr:hover:not(.ant-table-expanded-row)>td {
+            color: #000;
+        }
+    }
+}
+
+.comTitle {
+    color: #3a5277;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px 0px 20px 0;
+}
+
+// 邮箱维护系统专用样式
+.email-maintenance {
+    .ant-form {
+        .ant-form-item {
+            margin-bottom: 12px;
+        }
+        
+        .ant-form-item-label > label {
+            font-weight: 500;
+        }
+    }
+    
+    .ant-table {
+        .ant-table-thead > tr > th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .ant-table-tbody > tr > td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .ant-table-tbody > tr:hover > td {
+            background-color: #f0f8ff;
+        }
+    }
+    
+    .action-buttons {
+        .ant-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+    }
+    
+    .form-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .table-section {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .mainContentWrap {
+        padding: 10px;
+        
+        .ant-form {
+            .ant-form-item {
+                display: block;
+                margin-bottom: 16px;
+                
+                .ant-form-item-control-input {
+                    width: 100%;
+                }
+            }
+        }
+        
+        .ant-input {
+            width: 100% !important;
+        }
+        
+        .ant-table {
+            font-size: 12px;
+            
+            .ant-table-thead > tr > th,
+            .ant-table-tbody > tr > td {
+                padding: 8px 4px;
+            }
+        }
+    }
+}

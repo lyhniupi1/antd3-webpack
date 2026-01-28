@@ -254,61 +254,25 @@ class App2 extends React.Component {
           />
         </Card>
 
-        <Card title="新增/维护邮箱" className="form-section" style={{ marginTop: 20 }}>
-          <Form layout="vertical">
-            <Row gutter={24}>
-              <Col span={8}>
-                <FormItem label="邮箱地址">
-                  {getFieldDecorator('email', {
-                    rules: [
-                      { required: true, message: '请输入邮箱地址' },
-                      { type: 'email', message: '请输入有效的邮箱地址' },
-                    ],
-                  })(
-                    <Input placeholder="例如：user@example.com" />
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={8}>
-                <FormItem label="使用人">
-                  {getFieldDecorator('user', {
-                    rules: [
-                      { required: true, message: '请输入使用人' },
-                      { max: 20, message: '使用人名称不能超过20个字符' },
-                    ],
-                  })(
-                    <Input placeholder="例如：张三" />
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={8}>
-                <FormItem label="说明">
-                  {getFieldDecorator('description', {
-                    rules: [
-                      { max: 100, message: '说明不能超过100个字符' },
-                    ],
-                  })(
-                    <Input placeholder="例如：财务部门专用邮箱" />
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24} style={{ textAlign: 'right' }}>
-                <Button
-                  type="primary"
-                  onClick={() => this.showModal()}
-                  icon={<Icon type="plus" />}
-                  style={{ marginRight: 8 }}
-                >
-                  新增邮箱
-                </Button>
-                <Paragraph type="secondary" style={{ marginTop: 16 }}>
-                  提示：邮箱地址将作为主键，请确保唯一性。点击表格右侧的"编辑"或"删除"按钮可以维护现有邮箱。
-                </Paragraph>
-              </Col>
-            </Row>
-          </Form>
+        <Card className="form-section" style={{ marginTop: 20 }}>
+          <Typography>
+            <Title level={4}>使用说明</Title>
+            <Paragraph>
+              1. 点击右上角的"新增邮箱"按钮可以添加新的邮箱信息。
+            </Paragraph>
+            <Paragraph>
+              2. 在表格中点击"编辑"按钮可以修改现有邮箱信息。
+            </Paragraph>
+            <Paragraph>
+              3. 点击"删除"按钮可以删除对应的邮箱记录。
+            </Paragraph>
+            <Paragraph>
+              4. 邮箱地址将作为主键，请确保唯一性。
+            </Paragraph>
+            <Paragraph type="secondary">
+              提示：系统支持分页显示，您可以通过表格下方的分页控件浏览更多数据。
+            </Paragraph>
+          </Typography>
         </Card>
 
         {/* 新增/编辑模态框 */}

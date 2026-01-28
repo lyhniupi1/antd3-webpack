@@ -187,11 +187,10 @@ class App2 extends React.Component {
           <span>
             <Button
               type="link"
-              icon={<Icon type="edit" />}
               onClick={() => this.showModal(record)}
-              style={{ marginRight: 8 }}
+              style={{ marginRight: 8, color: '#1890ff' }}
             >
-              编辑
+              <Icon type="edit" style={{ marginRight: 4 }} />编辑
             </Button>
             <Popconfirm
               title="确定要删除这个邮箱吗？"
@@ -199,8 +198,8 @@ class App2 extends React.Component {
               okText="确定"
               cancelText="取消"
             >
-              <Button type="link" danger icon={<Icon type="delete" />}>
-                删除
+              <Button type="link" danger>
+                <Icon type="delete" style={{ marginRight: 4 }} />删除
               </Button>
             </Popconfirm>
           </span>

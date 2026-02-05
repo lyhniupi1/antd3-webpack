@@ -29,18 +29,12 @@ class App2 extends React.Component {
     super(props);
     this.state = {
       // 邮箱数据
-      emailData: [
-        { key: '1', email: 'admin@company.com', user: '管理员', description: '系统管理员邮箱' },
-        { key: '2', email: 'finance@company.com', user: '财务部', description: '财务部门邮箱' },
-        { key: '3', email: 'hr@company.com', user: '人力资源部', description: '人力资源部门邮箱' },
-        { key: '4', email: 'it@company.com', user: '技术部', description: '技术支持邮箱' },
-        { key: '5', email: 'sales@company.com', user: '销售部', description: '销售部门邮箱' },
-      ],
+      emailData: [],
       // 分页
       pagination: {
         current: 1,
         pageSize: 5,
-        total: 5,
+        total: 0,
       },
       // 模态框
       modalVisible: false,
@@ -50,6 +44,40 @@ class App2 extends React.Component {
       loading: false,
     };
   }
+
+  async componentDidMount() {
+    // 组件挂载后加载邮箱数据
+    this.handleEmailQuery();
+  }
+
+  // 查询邮箱数据
+  handleEmailQuery = () => {
+    FlexProcess('handleEmail', { operateType: 'query' })
+      .then(response => {
+        // 处理响应数据
+        if (response && response.success) {
+          // 假设响应数据在 response.data 中，且每个数据项有 key 字段
+          const emailData = response.data.map((item, index) => ({
+            ...item,
+            key: item.key || (index + 1).toString(),
+          }));
+          this.setState({
+            emailData,
+            pagination: {
+              ...this.state.pagination,
+              total: emailData.length,
+            },
+          });
+        } else {
+          console.error('查询邮箱数据失败:', response);
+          message.error('加载邮箱数据失败');
+        }
+      })
+      .catch(error => {
+        console.error('查询邮箱数据异常:', error);
+        message.error('加载邮箱数据异常');
+      });
+  };
 
   // 显示新增/编辑模态框
   showModal = (record = null) => {

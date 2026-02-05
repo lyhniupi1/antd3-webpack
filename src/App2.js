@@ -60,7 +60,7 @@ class App2 extends React.Component {
           // 假设响应数据在 response.data 中，且每个数据项有 key 字段
           const emailData = response.data.list.map((item, index) => ({
             ...item,
-            key: item.key || (index + 1).toString(),
+            key: item.email ,
           }));
           this.setState({
             emailData,

@@ -13,15 +13,18 @@ app.use(express.json());
 // 处理 FlexProcess 请求
 app.post('/handleEmail', (req, res) => {
   console.log('收到 handleEmail 请求:', req.body);
-  // 模拟成功响应
+  // 模拟成功响应，数据字段与表格列匹配：email, user, description
   res.json({
     success: true,
     data: {
       list: [
-        { id: 1, email: 'test1@example.com', status: 'active' },
-        { id: 2, email: 'test2@example.com', status: 'inactive' }
+        { email: 'admin@example.com', user: '张三', description: '管理员邮箱' },
+        { email: 'finance@example.com', user: '李四', description: '财务部门邮箱' },
+        { email: 'support@example.com', user: '王五', description: '技术支持邮箱' },
+        { email: 'sales@example.com', user: '赵六', description: '销售部门邮箱' },
+        { email: 'hr@example.com', user: '钱七', description: '人力资源邮箱' }
       ],
-      total: 2
+      total: 5
     }
   });
 });

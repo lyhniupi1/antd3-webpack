@@ -18,6 +18,7 @@ import {
 
 const { Title, Paragraph } = Typography;
 const FormItem = Form.Item;
+import FlexProcess from './service';
 
 import './index.less'
 

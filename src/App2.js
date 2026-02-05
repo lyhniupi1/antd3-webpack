@@ -54,10 +54,11 @@ class App2 extends React.Component {
   handleEmailQuery = () => {
     FlexProcess('handleEmail', { operateType: 'query' })
       .then(response => {
+        console.log(JSON.stringify(response))
         // 处理响应数据
         if (response && response.success) {
           // 假设响应数据在 response.data 中，且每个数据项有 key 字段
-          const emailData = response.data.map((item, index) => ({
+          const emailData = response.data.list.map((item, index) => ({
             ...item,
             key: item.key || (index + 1).toString(),
           }));

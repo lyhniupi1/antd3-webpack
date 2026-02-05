@@ -118,7 +118,7 @@ class App2 extends React.Component {
   // 处理表单提交
   handleSubmit = () => {
     const { form } = this.props;
-    const { emailData, editingRecord } = this.state;
+    const { editingRecord } = this.state;
     
     form.validateFields((err, values) => {
       if (err) {
@@ -127,53 +127,58 @@ class App2 extends React.Component {
       
       this.setState({ loading: true });
       
-      // 模拟API调用延迟
-      setTimeout(() => {
-        if (editingRecord) {
-          // 更新现有记录
-          const newData = emailData.map(item => 
-            item.key === editingRecord.key ? { ...item, ...values, key: editingRecord.key } : item
-          );
-          this.setState({
-            emailData: newData,
-            loading: false,
-          });
-          message.success('邮箱更新成功');
-        } else {
-          // 新增记录
-          const newRecord = {
-            key: (emailData.length + 1).toString(),
-            ...values,
-          };
-          this.setState({
-            emailData: [...emailData, newRecord],
-            pagination: {
-              ...this.state.pagination,
-              total: emailData.length + 1,
-            },
-            loading: false,
-          });
-          message.success('邮箱新增成功');
-        }
-        
-        this.hideModal();
-      }, 500);
+      // 根据是编辑还是新增决定 operateType
+      const operateType = editingRecord ? 'edit' : 'add';
+      const params = {
+        operateType,
+        ...values
+      };
+      
+      // 如果是编辑，需要传递原始 email 作为 oriEmail 来定位
+      if (editingRecord) {
+        params.oriEmail = editingRecord.email;
+        // 注意：values 中的 email 字段可能是新的邮箱地址，将作为 email 参数传递
+        // 如果用户没有修改邮箱，则 values.email 等于 editingRecord.email
+      }
+      
+      FlexProcess('handleEmail', params)
+        .then(response => {
+          if (response && response.success) {
+            message.success(editingRecord ? '邮箱更新成功' : '邮箱新增成功');
+            // 重新查询数据以更新列表
+            this.handleEmailQuery();
+            this.hideModal();
+            this.setState({ loading: false });
+          } else {
+            message.error(response?.message || '操作失败');
+            this.setState({ loading: false });
+          }
+        })
+        .catch(error => {
+          console.error('操作失败:', error);
+          message.error('操作失败');
+          this.setState({ loading: false });
+        });
     });
   };
 
   // 删除邮箱
   handleDelete = (key) => {
-    const { emailData } = this.state;
-    const newData = emailData.filter(item => item.key !== key);
-    
-    this.setState({
-      emailData: newData,
-      pagination: {
-        ...this.state.pagination,
-        total: newData.length,
-      },
-    });
-    message.success('邮箱删除成功');
+    // key 就是 email
+    FlexProcess('handleEmail', { operateType: 'delete', email: key })
+      .then(response => {
+        if (response && response.success) {
+          message.success('邮箱删除成功');
+          // 重新查询数据以更新列表
+          this.handleEmailQuery();
+        } else {
+          message.error(response?.message || '删除失败');
+        }
+      })
+      .catch(error => {
+        console.error('删除失败:', error);
+        message.error('删除失败');
+      });
   };
 
   // 处理分页变化

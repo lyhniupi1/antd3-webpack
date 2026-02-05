@@ -22,7 +22,7 @@ let dataList = [
 // 处理 FlexProcess 请求
 app.post('/handleEmail', (req, res) => {
   console.log('收到 handleEmail 请求:', req.body);
-  const { operateType, email, user, description } = req.body;
+  const { operateType, email, user, description, oriEmail } = req.body;
   
   // 根据 operateType 执行相应操作
   switch (operateType) {
@@ -65,24 +65,24 @@ app.post('/handleEmail', (req, res) => {
       break;
       
     case 'edit':
-      // 根据 email 修改数据
-      if (!email) {
+      // 根据 oriEmail 定位要修改的邮箱记录，使用 email, user, description 作为新值
+      if (!oriEmail) {
         return res.json({
           success: false,
-          message: '编辑操作需要 email 参数'
+          message: '编辑操作需要 oriEmail 参数来定位原始邮箱'
         });
       }
-      const index = dataList.findIndex(item => item.email === email);
+      const index = dataList.findIndex(item => item.email === oriEmail);
       if (index !== -1) {
         // 更新找到的条目
         dataList[index] = {
-          email: email,
+          email: email !== undefined ? email : oriEmail, // 如果提供了新邮箱则更新，否则保持原邮箱
           user: user !== undefined ? user : dataList[index].user,
           description: description !== undefined ? description : dataList[index].description
         };
         res.json({
           success: true,
-          message: `邮箱 ${email} 更新成功`,
+          message: `邮箱 ${oriEmail} 更新成功`,
           data: {
             list: dataList,
             total: dataList.length
@@ -91,7 +91,7 @@ app.post('/handleEmail', (req, res) => {
       } else {
         res.json({
           success: false,
-          message: `未找到邮箱 ${email}`
+          message: `未找到邮箱 ${oriEmail}`
         });
       }
       break;

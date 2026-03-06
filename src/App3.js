@@ -19,7 +19,12 @@ const App3 = () => {
   });
 
   // 单独的时间输入状态
-  const [accountingDateInput, setAccountingDateInput] = useState('2025-01-01');
+  const [accountingDateInput, setAccountingDateInput] = useState(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+  });
 
   // 加载数据
   useEffect(() => {
@@ -119,7 +124,7 @@ const App3 = () => {
             <tr style={{ borderBottom: '1px solid #e8e8e8' }}>
               <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
                 <input
-                  type="date"
+                  type="month"
                   style={{ width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px' }}
                   value={accountingDateInput}
                   onChange={(e) => setAccountingDateInput(e.target.value)}

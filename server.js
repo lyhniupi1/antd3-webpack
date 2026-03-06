@@ -173,6 +173,8 @@ app.post('/queryBankPayFeeSett', (req, res) => {
   
   // 模拟返回数据
   const mockData = {
+    starttime:'2026-01-01',
+    endtime:'2026-01-31',
     netAmount: '1,000.00',
     headOfficeAmount: '500.00',
     branchAmounts: [

@@ -36,7 +36,9 @@ const App3 = () => {
           setData({
             netAmount: apiData.netAmount || '0.00',
             headOfficeAmount: apiData.headOfficeAmount || '0.00',
-            branchAmounts: apiData.branchAmounts || []
+            branchAmounts: apiData.branchAmounts || [],
+            starttime: apiData.starttime,
+            endtime:apiData.endtime
           });
           // 重新计算汇总
           recalculateSummary(apiData.branchAmounts || [], apiData.netAmount || '0.00', apiData.headOfficeAmount || '0.00');
@@ -112,7 +114,7 @@ const App3 = () => {
           <thead>
             <tr>
               <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>记账时间</th>
-              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>网联手续费文件金额</th>
+              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>网联手续费文件支出金额</th>
               <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>总行支出</th>
               <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>分行支出</th>
             </tr>
@@ -129,7 +131,9 @@ const App3 = () => {
                 />
               </td>
               <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
-                <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>{data.netAmount}</div>
+                <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>交易所属区间：{data.starttime}~{data.endtime}</div>
+                <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>金额：{data.netAmount}</div>
+
               </td>
               <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
                 <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>{data.headOfficeAmount}</div>

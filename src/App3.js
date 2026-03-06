@@ -7,7 +7,12 @@ const App3 = () => {
     accountingDate: '20260206',
     netAmount: '1,000.00',
     headOfficeAmount: '500.00',
-    branchAmounts: ['200.00', '150.00', '50.00', '101.00'], // 分行支出明细
+    branchAmounts: [
+      { branch: '分行1', amount: '200.00' },
+      { branch: '分行2', amount: '150.00' },
+      { branch: '分行3', amount: '50.00' },
+      { branch: '分行4', amount: '101.00' }
+    ], // 分行支出明细
   });
 
   const [summary, setSummary] = useState({
@@ -24,7 +29,10 @@ const App3 = () => {
     
     if (type === 'branch' && index !== null) {
       const newAmounts = [...data.branchAmounts];
-      newAmounts[index] = formatCurrency(value);
+      newAmounts[index] = {
+        ...newAmounts[index],
+        amount: formatCurrency(value)
+      };
       setData({ ...data, branchAmounts: newAmounts });
       recalculateSummary(newAmounts);
     } else if (type === 'net') {
@@ -38,7 +46,8 @@ const App3 = () => {
 
   // 重新计算汇总
   const recalculateSummary = (branchAmounts = data.branchAmounts, netAmount = data.netAmount, headOfficeAmount = data.headOfficeAmount) => {
-    const branchTotal = branchAmounts.reduce((sum, amount) => {
+    const branchTotal = branchAmounts.reduce((sum, item) => {
+      const amount = typeof item === 'object' ? item.amount : item;
       return sum + (parseFloat(amount.replace(/,/g, '')) || 0);
     }, 0);
     
@@ -66,7 +75,7 @@ const App3 = () => {
 
   return (
     <div className="mainContentWrap accounting-maintenance">
-      <div className="comTitle" style={{fontSize:'24px', fontWeight:'bold', marginBottom:'24px', marginTop:'24px'}}>记账明细表</div>
+      <div className="comTitle" style={{fontSize:'24px', fontWeight:'bold', marginBottom:'50px', marginTop:'24px'}}>网联银行间付款业务手续费清算记录</div>
       
       <div className="table-section" style={{ marginBottom: '20px' }}>
         <table className="ant-table" style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #e8e8e8' }}>
@@ -98,9 +107,9 @@ const App3 = () => {
               <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
                 <div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {data.branchAmounts.map((amount, index) => (
+                    {data.branchAmounts.map((item, index) => (
                       <div key={index} style={{ padding: '8px', background: '#fafafa', borderRadius: '4px' }}>
-                        <span style={{ fontWeight: '500' }}>分行{index + 1}: {amount}</span>
+                        <span style={{ fontWeight: '500' }}>{item.branch}: {item.amount}</span>
                       </div>
                     ))}
                   </div>

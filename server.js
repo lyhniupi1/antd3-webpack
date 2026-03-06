@@ -9,6 +9,8 @@ app.use(cors());
 
 // 解析 JSON 请求体
 app.use(express.json());
+// 解析表单数据 (application/x-www-form-urlencoded)
+app.use(express.urlencoded({ extended: true }));
 
 //初始化邮箱数据
 let dataList = [
@@ -22,6 +24,36 @@ let dataList = [
 // 处理 FlexProcess 请求
 app.post('/handleEmail', (req, res) => {
   console.log('收到 handleEmail 请求:', req.body);
+  
+  // 获取所有请求参数的示例
+  // 1. 请求体参数 (JSON 或表单数据)
+  //    - JSON 数据: Content-Type: application/json
+  //    - 表单数据: Content-Type: application/x-www-form-urlencoded (已通过 express.urlencoded 解析)
+  //    - 多部分表单数据: Content-Type: multipart/form-data (需要 multer 等中间件)
+  const bodyParams = req.body;
+  // 2. 查询字符串参数 (URL 中的 ?key=value)
+  const queryParams = req.query;
+  // 3. 路由参数 (如 /users/:id)
+  const routeParams = req.params;
+  // 4. 请求头
+  const headers = req.headers;
+  
+  // 打印所有参数用于调试
+  console.log('所有请求参数:');
+  console.log('- 请求体 (JSON/表单):', bodyParams);
+  console.log('- 查询参数:', queryParams);
+  console.log('- 路由参数:', routeParams);
+  console.log('- 请求头:', headers);
+  
+  // 也可以合并所有参数到一个对象（注意优先级）
+  const allParams = {
+    ...routeParams,
+    ...queryParams,
+    ...bodyParams,
+    // 请求头通常单独处理，不合并到参数中
+  };
+  console.log('合并后的参数:', allParams);
+  
   const { operateType, email, user, description, oriEmail } = req.body;
   
   // 根据 operateType 执行相应操作

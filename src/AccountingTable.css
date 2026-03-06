@@ -1,0 +1,247 @@
+/* AccountingTable.css */
+.accounting-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.accounting-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 表头样式 */
+.header-cell {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* 数据行样式 */
+.data-row {
+  background-color: #fff;
+}
+
+.data-row:hover {
+  background-color: #f8f9fa;
+}
+
+/* 单元格通用样式 */
+.date-cell,
+.amount-cell,
+.branch-cell,
+.summary-label,
+.summary-amount,
+.branch-summary-cell {
+  padding: 12px;
+  border: 1px solid #e9ecef;
+}
+
+/* 日期输入 */
+.date-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 金额文本显示 */
+.amount-text {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: right;
+  color: #333;
+  font-weight: 500;
+}
+
+.branch-amount-text {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+/* 分行支出单元格 */
+.branch-cell {
+  vertical-align: top;
+}
+
+.branch-amounts-container {
+  min-height: 120px;
+}
+
+.branch-amounts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.branch-amount-item {
+  display: flex;
+  align-items: center;
+}
+
+
+/* 合计行样式 */
+.summary-row {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.summary-label {
+  background: #e9ecef;
+  color: #495057;
+  font-size: 15px;
+  text-align: center;
+}
+
+.summary-amount {
+  text-align: right;
+  font-size: 16px;
+  color: #333;
+}
+
+.total-amount {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #667eea;
+  color: white;
+  border-radius: 4px;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* 分行汇总单元格 */
+.branch-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.branch-total-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.branch-total-item {
+  padding: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 14px;
+  color: #495057;
+}
+
+.branch-total-sum {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.total-label {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.total-value {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 统计信息 */
+.statistics {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.check-result {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.check-result.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.check-result.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .accounting-container {
+    padding: 10px;
+  }
+  
+  .accounting-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .header-cell {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+  
+  .branch-amounts-grid,
+  .branch-total-grid {
+    flex-direction: column;
+  }
+  
+  .statistics {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

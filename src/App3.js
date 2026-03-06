@@ -1,27 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.less';
+import FlexProcess from './service';
 
 const App3 = () => {
   // 初始数据
   const [data, setData] = useState({
-    accountingDate: '20260206',
-    netAmount: '1,000.00',
-    headOfficeAmount: '500.00',
-    branchAmounts: [
-      { branch: '分行1', amount: '200.00' },
-      { branch: '分行2', amount: '150.00' },
-      { branch: '分行3', amount: '50.00' },
-      { branch: '分行4', amount: '101.00' }
-    ], // 分行支出明细
+    accountingDate: '',
+    netAmount: '0.00',
+    headOfficeAmount: '0.00',
+    branchAmounts: [], // 分行支出明细
   });
 
   const [summary, setSummary] = useState({
-    total: '1,000.00',
-    netAmount: '1,000.00',
-    headOfficeAmount: '500.00',
-    branchTotal: '500.00', // 分行支出汇总
+    total: '0.00',
+    netAmount: '0.00',
+    headOfficeAmount: '0.00',
+    branchTotal: '0.00', // 分行支出汇总
   });
 
+  // 单独的时间输入状态
+  const [accountingDateInput, setAccountingDateInput] = useState('2025-01-01');
+
+  // 加载数据
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await FlexProcess('queryBankPayFeeSett', {});
+        // 根据项目中的常见响应格式：{ success: true, data: { ... } }
+        if (response && response.success) {
+          const apiData = response.data || {};
+          setData({
+            accountingDate: accountingDateInput,
+            netAmount: apiData.netAmount || '0.00',
+            headOfficeAmount: apiData.headOfficeAmount || '0.00',
+            branchAmounts: apiData.branchAmounts || []
+          });
+          // 重新计算汇总
+          recalculateSummary(apiData.branchAmounts || [], apiData.netAmount || '0.00', apiData.headOfficeAmount || '0.00');
+        } else {
+          console.error('接口返回失败:', response);
+          // 可以在这里添加错误处理，比如显示错误消息
+        }
+      } catch (error) {
+        console.error('加载数据失败:', error);
+        // 可以在这里添加错误处理，比如显示错误消息
+      }
+    };
+
+    fetchData();
+  }, [accountingDateInput]);
 
   // 更新金额
   const updateAmount = (type, value, index = null) => {
@@ -94,8 +121,8 @@ const App3 = () => {
                 <input
                   type="date"
                   style={{ width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px' }}
-                  value={data.accountingDate}
-                  onChange={(e) => setData({...data, accountingDate: e.target.value})}
+                  value={accountingDateInput}
+                  onChange={(e) => setAccountingDateInput(e.target.value)}
                 />
               </td>
               <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>

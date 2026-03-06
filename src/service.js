@@ -5,7 +5,7 @@
  * @param {string} baseURL - 可选的基础 URL，默认为空（相对路径）
  * @returns {Promise} 返回 Promise，解析为响应数据
  */
-function FlexProcess(process, params, baseURL = '') {
+async function FlexProcess(process, params, baseURL = '') {
   // 构建完整的请求 URL
   const url = baseURL ? `${baseURL}/${process}` : `/${process}`;
   

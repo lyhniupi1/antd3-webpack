@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AccountingTable.css';
+import './index.less';
 
 const App3 = () => {
   // 初始数据
@@ -65,83 +65,88 @@ const App3 = () => {
 
 
   return (
-    <div className="accounting-container">
-      <h2>记账明细表</h2>
+    <div className="mainContentWrap accounting-maintenance">
+      <div className="comTitle" style={{fontSize:'24px', fontWeight:'bold', marginBottom:'24px', marginTop:'24px'}}>记账明细表</div>
       
-      <table className="accounting-table">
-        <thead>
-          <tr>
-            <th className="header-cell">记账时间</th>
-            <th className="header-cell">网联手续费文件金额</th>
-            <th className="header-cell">总行支出</th>
-            <th className="header-cell">分行支出</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* 第二行：明细数据 */}
-          <tr className="data-row">
-            <td className="date-cell">
-              <input
-                type="date"
-                className="date-input"
-                value={data.accountingDate}
-                onChange={(e) => setData({...data, accountingDate: e.target.value})}
-              />
-            </td>
-            <td className="amount-cell">
-              <span className="amount-text">{data.netAmount}</span>
-            </td>
-            <td className="amount-cell">
-              <span className="amount-text">{data.headOfficeAmount}</span>
-            </td>
-            <td className="branch-cell">
-              <div className="branch-amounts-container">
-                <div className="branch-amounts-grid">
-                  {data.branchAmounts.map((amount, index) => (
-                    <div key={index} className="branch-amount-item">
-                      <span className="branch-amount-text">分行{index + 1}: {amount}</span>
-                    </div>
-                  ))}
+      <div className="table-section" style={{ marginBottom: '20px' }}>
+        <table className="ant-table" style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #e8e8e8' }}>
+          <thead>
+            <tr>
+              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>记账时间</th>
+              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>网联手续费文件金额</th>
+              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>总行支出</th>
+              <th style={{ background: '#F3F5FD', padding: '12px', textAlign: 'center', fontWeight: '600', border: '1px solid #e8e8e8' }}>分行支出</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* 第二行：明细数据 */}
+            <tr style={{ borderBottom: '1px solid #e8e8e8' }}>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <input
+                  type="date"
+                  style={{ width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px' }}
+                  value={data.accountingDate}
+                  onChange={(e) => setData({...data, accountingDate: e.target.value})}
+                />
+              </td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>{data.netAmount}</div>
+              </td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div style={{ padding: '8px', background: '#fafafa', borderRadius: '4px', fontWeight: '500' }}>{data.headOfficeAmount}</div>
+              </td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {data.branchAmounts.map((amount, index) => (
+                      <div key={index} style={{ padding: '8px', background: '#fafafa', borderRadius: '4px' }}>
+                        <span style={{ fontWeight: '500' }}>分行{index + 1}: {amount}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          
-          {/* 第三行：合计 */}
-          <tr className="summary-row">
-            <td className="summary-label">合计金额</td>
-            <td className="summary-amount">
-              <span className="total-amount">{summary.netAmount}</span>
-            </td>
-            <td className="summary-amount">
-              <span className="total-amount">{summary.headOfficeAmount}</span>
-            </td>
-            <td className="summary-amount">
-                <div className="total-amount">
-                  <span className="total-amount">{summary.branchTotal}</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+            
+            {/* 第三行：合计 */}
+            <tr style={{ background: '#f8f9fa' }}>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8', fontWeight: '600' }}>合计金额</td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div style={{ display: 'inline-block', padding: '6px 12px', background: '#488162', color: 'white', borderRadius: '4px', fontWeight: '600' }}>{summary.netAmount}</div>
+              </td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div style={{ display: 'inline-block', padding: '6px 12px', background: '#488162', color: 'white', borderRadius: '4px', fontWeight: '600' }}>{summary.headOfficeAmount}</div>
+              </td>
+              <td style={{ padding: '12px', textAlign: 'center', border: '1px solid #e8e8e8' }}>
+                <div style={{ display: 'inline-block', padding: '6px 12px', background: '#488162', color: 'white', borderRadius: '4px', fontWeight: '600' }}>{summary.branchTotal}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       {/* 统计信息 */}
-      <div className="statistics">
-        <div className="stat-item">
-          <span className="stat-label">总金额：</span>
-          <span className="stat-value">{summary.total}</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-label">分行数量：</span>
-          <span className="stat-value">{data.branchAmounts.length} 个</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-label">校验结果：</span>
-          <span className={`check-result ${Math.abs(parseFloat(summary.total.replace(/,/g, '')) - 
-            (parseFloat(data.netAmount.replace(/,/g, '')) || 0)) < 0.01 ? 'success' : 'error'}`}>
-            {Math.abs(parseFloat(summary.total.replace(/,/g, '')) - 
-              (parseFloat(data.netAmount.replace(/,/g, '')) || 0)) < 0.01 ? '✓ 金额平衡' : '✗ 金额不平衡'}
-          </span>
+      <div style={{ marginTop: '20px', padding: '20px', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div>
+            <span style={{ fontWeight: '500', marginRight: '8px' }}>总金额：</span>
+            <span style={{ fontWeight: '600', color: '#1890ff' }}>{summary.total}</span>
+          </div>
+          <div>
+            <span style={{ fontWeight: '500', marginRight: '8px' }}>分行数量：</span>
+            <span style={{ fontWeight: '600', color: '#52c41a' }}>{data.branchAmounts.length} 个</span>
+          </div>
+          <div>
+            <span style={{ fontWeight: '500', marginRight: '8px' }}>校验结果：</span>
+            <span style={{
+              fontWeight: '600',
+              color: Math.abs(parseFloat(summary.total.replace(/,/g, '')) -
+                (parseFloat(data.netAmount.replace(/,/g, '')) || 0)) < 0.01 ? '#52c41a' : '#ff4d4f'
+            }}>
+              {Math.abs(parseFloat(summary.total.replace(/,/g, '')) -
+                (parseFloat(data.netAmount.replace(/,/g, '')) || 0)) < 0.01 ? '✓ 金额平衡' : '✗ 金额不平衡'}
+            </span>
+          </div>
         </div>
       </div>
     </div>

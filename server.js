@@ -167,6 +167,28 @@ app.post('/handleEmail', (req, res) => {
   }
 });
 
+// 处理银行付款手续费清算查询
+app.post('/queryBankPayFeeSett', (req, res) => {
+  console.log('收到 queryBankPayFeeSett 请求:', req.body);
+  
+  // 模拟返回数据
+  const mockData = {
+    netAmount: '1,000.00',
+    headOfficeAmount: '500.00',
+    branchAmounts: [
+      { branch: '分行1', amount: '200.00' },
+      { branch: '分行2', amount: '150.00' },
+      { branch: '分行3', amount: '50.00' },
+      { branch: '分行4', amount: '101.00' }
+    ]
+  };
+  
+  res.json({
+    success: true,
+    ...mockData
+  });
+});
+
 // 处理其他 FlexProcess 请求的通用路由
 app.post('/:process', (req, res) => {
   console.log(`收到 ${req.params.process} 请求:`, req.body);

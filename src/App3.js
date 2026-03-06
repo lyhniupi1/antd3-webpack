@@ -5,7 +5,6 @@ import FlexProcess from './service';
 const App3 = () => {
   // 初始数据
   const [data, setData] = useState({
-    accountingDate: '',
     netAmount: '0.00',
     headOfficeAmount: '0.00',
     branchAmounts: [], // 分行支出明细
@@ -30,12 +29,11 @@ const App3 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await FlexProcess('queryBankPayFeeSett', {});
+        const response = await FlexProcess('queryBankPayFeeSett', {queryDate:accountingDateInput});
         // 根据项目中的常见响应格式：{ success: true, data: { ... } }
         if (response && response.success) {
-          const apiData = response.data || {};
+          const apiData = response || {};
           setData({
-            accountingDate: accountingDateInput,
             netAmount: apiData.netAmount || '0.00',
             headOfficeAmount: apiData.headOfficeAmount || '0.00',
             branchAmounts: apiData.branchAmounts || []
